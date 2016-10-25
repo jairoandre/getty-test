@@ -79,3 +79,12 @@ export function fetchFirstKid(storyId, kidId) {
       .then(kid => dispatch(receiveFirstKid(storyId, kid)));
   }
 }
+
+export const TOGGLE_MODAL_VISIBILITY = 'TOGGLE_MODAL_VISIBILITY';
+export function toggleModalVisibility(storyId) {
+  console.log(storyId);
+  return {
+    type: TOGGLE_MODAL_VISIBILITY,
+    storyId
+  }
+}

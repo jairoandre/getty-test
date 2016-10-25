@@ -11,6 +11,7 @@ class Story extends React.Component {
   constructor(props) {
     super(props);
     this.loadFirstKid = this.loadFirstKid.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -21,19 +22,21 @@ class Story extends React.Component {
     const { story } = this.props;
     if (story.kids && story.kids.length > 0) {
       this.props.fetchFirstKid(story.id, story.kids[0]);
+      this.props.toggleModalVisibility(story.id);
     }
   }
 
   closeModal() {
-    console.log("close modal")
+    const { toggleModalVisibility, story } = this.props;
+    toggleModalVisibility(story.id);
   }
 
   render() {
-    const { story, storyId, kid } = this.props;
+    const { story, storyId, kid, showModal } = this.props;
     var content = "Loading...";
     if (story) {
       var dialog = (
-        <Layer onClose={this.closeModal} closer align="top">
+        <Layer onClose={this.closeModal} closer={true} align="top">
           <Header>
             <Heading tag="h2">
               {kid ? ("By " + kid.by) : "Nothing"}
@@ -41,14 +44,14 @@ class Story extends React.Component {
           </Header>
           <Section>
             <Paragraph>
-              {kid ? kid.text : "Nothing"}
+              <div dangerouslySetInnerHTML={kid ? {__html: kid.text} : {__html: "Nothing"}}></div>
             </Paragraph>
           </Section>
         </Layer>
       );
       content = (
         <div style={{width: "100%"}}>
-          {kid ? dialog : <div></div>}
+          {showModal ? dialog : <div></div>}
           <a href={story.url}>{story.title}</a>
           <span className="comments" onClick={this.loadFirstKid}>{story.kids ? story.kids.length : 0} - Comentários</span>
         </div>
@@ -68,7 +71,9 @@ Story.propTypes = {
   story: PropTypes.object,
   kid: PropTypes.object,
   fetchStory: PropTypes.func.isRequired,
-  fetchFirstKid: PropTypes.func
+  fetchFirstKid: PropTypes.func.isRequired,
+  toggleModalVisibility: PropTypes.func.isRequired,
+  showModal: PropTypes.bool
 }
 
 export default Story;
