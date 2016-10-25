@@ -5,13 +5,12 @@ import ReactDOM from 'react-dom';
 import TopStories from './containers/TopStories';
 import store from './redux/store';
 import { Provider } from 'react-redux';
+import './default.scss';
 
 const App = () => (
 		<div>
 			<TopStories/>
 		</div>);
-
-console.log(store.getState());
 
 ReactDOM.render(
 	<Provider store={store}>

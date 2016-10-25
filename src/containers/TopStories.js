@@ -1,19 +1,25 @@
 import { connect } from 'react-redux';
-import { fetchTopStories } from '../redux/actions';
+import { fetchTopStories, fetchStory, fetchFirstKid } from '../redux/actions';
 import ListTopStories from '../components/ListTopStories';
 
 const mapStateToProps = (state) => {
   return {
-    term: state.topStories.term,
-    items: state.topStories.items
+    ids: state.topStories.ids,
+    stories: state.topStories.stories,
+    kids: state.topStories.kids
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateTerm: (evt) => {
-      console.log(evt);
+    fetchTopStories: () => {
       dispatch(fetchTopStories());
+    },
+    fetchStory: (id) => {
+      dispatch(fetchStory(id));
+    },
+    fetchFirstKid: (storyId, kidId) => {
+      dispatch(fetchFirstKid(storyId, kidId));
     }
   }
 };
