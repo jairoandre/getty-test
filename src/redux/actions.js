@@ -1,5 +1,5 @@
 export const REQUEST_TOPSTORIES = 'REQUEST_TOPSTORIES';
-function requestTopStories() {
+export function requestTopStories() {
   return {
     type: REQUEST_TOPSTORIES
   }
@@ -7,7 +7,7 @@ function requestTopStories() {
 
 
 export const RECEIVE_TOPSTORIES = 'RECEIVE_TOPSTORIES';
-function receiveTopStories(ids) {
+export function receiveTopStories(ids) {
   return {
     type: RECEIVE_TOPSTORIES,
     ids
